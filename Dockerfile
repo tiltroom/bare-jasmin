@@ -1,6 +1,4 @@
-FROM debian:jessie
-
-MAINTAINER Jookies LTD <jasmin@jookies.net>
+FROM ubuntu:bionic
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r jasmin && useradd -r -g jasmin jasmin
@@ -11,7 +9,7 @@ ENV JASMIN_VERSION 0.9.31
 RUN apt-get update && apt-get install -y \
     python2.7 \
     python-pip \
-    python-dev \
+    python2.7-dev \
     libffi-dev \
     libssl-dev \
     supervisor \
@@ -26,8 +24,7 @@ RUN mkdir -p /etc/jasmin/resource \
     /var/log/jasmin \
   && pip install --pre jasmin=="$JASMIN_VERSION"
 
-EXPOSE 2775 1401
-VOLUME ["/var/log/jasmin", "/etc/jasmin", "/etc/jasmin/store"]
+RUN sed -i '/\[jcli\]/a bind=0.0.0.0' /etc/jasmin/jasmin.cfg
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
