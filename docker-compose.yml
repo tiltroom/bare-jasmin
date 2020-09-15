@@ -9,9 +9,9 @@ services:
     networks:
       - jasmin-net
     volumes: 
-      - jasmin-data/logs/:/var/log/jasmin/
-      - jasmin-data/jasmin/:/etc/jasmin/
-      - jasmin-data/store/:/etc/jasmin/store/
+      - jasmin-logs/:/var/log/jasmin/
+      - jasmin-data/:/etc/jasmin/
+      - jasmin-store/:/etc/jasmin/store/
     depends_on:
       - redis
       - rabbitmq
@@ -22,9 +22,9 @@ services:
     networks: 
       - jasmin-net
     volumes:
-    - rabbitmq-data/etc/:/etc/rabbitmq/
-    - rabbitmq-data/data/:/var/lib/rabbitmq/
-    - rabbitmq-data/logs/:/var/log/rabbitmq/
+    - rabbitmq-etc/:/etc/rabbitmq/
+    - rabbitmq-data/:/var/lib/rabbitmq/
+    - rabbitmq-logs/:/var/log/rabbitmq/
 
   redis:
     image: redis:6.0.8-alpine
@@ -40,5 +40,9 @@ networks:
 
 volumes:
   redis-data:
+  rabbitmq-etc:
   rabbitmq-data:
+  rabbitmq-logs:
+  jasmin-logs:
   jasmin-data:
+  jasmin-store:
