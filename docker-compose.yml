@@ -11,7 +11,6 @@ services:
     volumes: 
       - jasmin-logs/:/var/log/jasmin/
       - jasmin-data/:/etc/jasmin/
-      - jasmin-store/:/etc/jasmin/store/
     depends_on:
       - redis
       - rabbitmq
@@ -47,4 +46,3 @@ volumes:
   rabbitmq-logs:
   jasmin-logs:
   jasmin-data:
-  jasmin-store:
